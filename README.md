@@ -44,7 +44,7 @@ Key insights from EDA:
 - Numerical variables (e.g., **blood pressure**, **serum creatinine**) exhibit skewed distributions.  
 - Categorical variables (e.g., **red blood cells**, **pus cells**, **diabetes**) are strongly associated with CKD.  
 - Class imbalance addressed using **SMOTE**.  
-- **Correlation analysis** retained significant features like **hemoglobin**, which is clinically vital.
+- **Correlation analysis** found highly correlated **hemoglobin**, **pcv** and **rbcc**. So I kept **hemo** which is clinically vital and dropped others.
 
 Visualizations such as histograms, heatmaps, and box plots aided in identifying feature importance and distribution patterns.
 
@@ -54,9 +54,9 @@ Visualizations such as histograms, heatmaps, and box plots aided in identifying 
 
 - **Normalization**: Applied Standard Scaler to normalize numerical features.  
 - **Imputation**: Replaced missing values with mean (numerical) and mode (categorical).  
-- **Encoding**: Binary categories encoded (e.g., `ckd=1`, `notckd=0`).  
+- **Encoding**: Binary categorical variable encoded (e.g., `ckd=1`, `notckd=0`).  
 - **Class Imbalance**: Resolved using **SMOTE**.  
-- **Feature Selection**: Retained clinically relevant features like **hemoglobin**.  
+- **Feature Selection**: Retained clinically relevant features like **hemoglobin** and dropped **pcv** and **rbcc**.   
 - **Dataset Split**: Divided into training and testing sets (80:20 ratio).  
 
 ---
@@ -67,17 +67,18 @@ Three machine learning models were implemented:
 
 1. **Random Forest (RF)**:  
    - Combines decision trees using bagging and random feature selection.  
-   - Tuned parameters: `n_estimators`, `max_depth`, `min_samples_split`.  
+   - Tuned parameters: `n_estimators`, `max_depth`, `min_samples_split`, 'min_samples_leaf', 'random_state'.  
    - Achieved **96.25% accuracy**.  
 
 2. **Support Vector Machine (SVM)**:  
    - Utilized the RBF kernel for non-linear feature interactions.  
-   - Tuned parameters: `gamma`, `C`, `max_iter`.  
+   - Tuned parameters: `gamma`, `probability`, `max_iter`.  
    - Achieved **93.75% accuracy**.  
 
 3. **XGBoost**:  
    - Gradient-boosted tree algorithm.  
-   - Tuned parameters: `max_depth`, `learning_rate`, `n_estimators`, `subsample`.  
+   - Tuned parameters: `max_depth`, `learning_rate`, `n_estimators`, `subsample`, 'random_state', 'use_label_encoder=True',
+                             'eval_metric='logloss''.  
    - Achieved **98.75% accuracy**.  
 
 ---
