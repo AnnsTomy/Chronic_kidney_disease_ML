@@ -93,6 +93,25 @@ Three machine learning models were implemented:
 
 ---
 
+### Detailed Metrics
+| Metric                     | Random Forest | SVM    | XGBoost |
+|----------------------------|---------------|--------|---------|
+| **Accuracy**               | 0.9625        | 0.9375 | 0.9875  |
+| **Precision (Class 0)**    | 0.96          | 1.00   | 0.97    |
+| **Recall (Class 0)**       | 0.93          | 0.82   | 1.00    |
+| **F1-score (Class 0)**     | 0.95          | 0.90   | 0.98    |
+| **Precision (Class 1)**    | 0.96          | 0.91   | 1.00    |
+| **Recall (Class 1)**       | 0.98          | 1.00   | 0.98    |
+| **F1-score (Class 1)**     | 0.97          | 0.95   | 0.99    |
+| **Macro Avg Precision**    | 0.96          | 0.96   | 0.98    |
+| **Macro Avg Recall**       | 0.95          | 0.91   | 0.99    |
+| **Macro Avg F1-score**     | 0.96          | 0.93   | 0.99    |
+| **Weighted Avg Precision** | 0.96          | 0.94   | 0.99    |
+| **Weighted Avg Recall**    | 0.96          | 0.94   | 0.99    |
+| **Weighted Avg F1-score**  | 0.96          | 0.94   | 0.99    |
+
+---
+
 ## **Feature Importance**
 
 Top features identified across models:  
