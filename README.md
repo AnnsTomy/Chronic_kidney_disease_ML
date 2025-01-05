@@ -1,85 +1,115 @@
-***A COMPARATIVE STUDY OF
-MACHINE LEARNING MODELS
-ON CHRONIC KIDNEY DISEASE***
+# **A Comparative Study of Machine Learning Models on Chronic Kidney Disease**
+
+## **Table of Contents**
+1. [Project Overview](#project-overview)  
+2. [Objectives](#objectives)  
+3. [Research Question](#research-question)  
+4. [Exploratory Data Analysis](#exploratory-data-analysis)  
+5. [Data Preprocessing](#data-preprocessing)  
+6. [Methodology](#methodology)  
+7. [Model Performance](#model-performance)  
+8. [Feature Importance](#feature-importance)  
+9. [Limitations](#limitations)    
+10. [License](#license)  
 
 
-PROJECT OVERVIEW
 
-A worldwide public health issue, chronic kidney disease (CKD) has numerous clinical signs and complicated symptoms. Improving patient outcomes requires early diagnosis and efficient treatment. In order to diagnose CKD, this study analyses clinical and demographic data using machine learning models such as Random Forest, XGBoost, and Support Vector Machines (SVM). The research assesses these models' performances, finds key features for diagnosis, and adjusts model parameters for predicted accuracy using a dataset from the UCI Machine Learning Repository. The study highlights the expanding potential of predictive healthcare and aids in the creation of reliable diagnostic tools. Measures like as F1 score, accuracy, precision, and support are used to identify the top-performing model.
+## **PROJECT OVERVIEW**
+---
 
-OBJECTIVES
+Chronic Kidney Disease (CKD) is a significant public health issue characterized by various clinical signs and symptoms. Early diagnosis and effective treatment are crucial for improving patient outcomes.  **Random Forest**, **XGBoost**, and **Support Vector Machines (SVM)** are machine learning models used in this research to analyse clinical and demographic data, compare model performances, find important diagnostic features, and optimise parameters to attain high predictive accuracy.
 
-The following are the project's main goals:
+Utilising information from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/chronic_kidney_disease), the study demonstrates how predictive healthcare may be used to create trustworthy diagnostic tools. The top-performing model is identified using performance indicators including **accuracy**, **F1-score**, **precision**, and **recall**.
 
-To assess the effectiveness of many machine learning models in predicting Chronic Kidney Disease (CKD), such as Random Forest, XGBoost, and Support Vector Machines (SVM).
+---
+## **Objectives**
 
-To determine the essential clinical and demographic characteristics that are important for diagnosing chronic kidney disease.
+1. Evaluate the effectiveness of machine learning models (**Random Forest**, **XGBoost**, and **SVM**) for predicting CKD.  
+2. Identify critical clinical and demographic features essential for diagnosing CKD.  
+3. Improve model performance through hyperparameter optimization.  
+4. Address dataset and model limitations for a balanced evaluation.
 
-To improve the efficacy and accuracy of the model by applying hyperparameter optimisation approaches.
+---
 
-To offer a fair assessment by looking at the dataset's and the models' limitations.
-
-RESEARCH QUESTION
+## **Research Question**
 
 How do different machine learning models compare in their effectiveness for predicting Chronic Kidney Disease based on clinical and demographic features?
 
-EXPLORATORY DATA ANALYSIS
+---
 
+## **Exploratory Data Analysis**
 
+Key insights from EDA:  
+- Data includes both **numerical** and **categorical** features with significant missing values requiring preprocessing.  
+- Numerical variables (e.g., **blood pressure**, **serum creatinine**) exhibit skewed distributions.  
+- Categorical variables (e.g., **red blood cells**, **pus cells**, **diabetes**) are strongly associated with CKD.  
+- Class imbalance addressed using **SMOTE**.  
+- **Correlation analysis** retained significant features like **hemoglobin**, which is clinically vital.
 
-The exploratory data analysis (EDA) of the Chronic Kidney Disease (CKD) dataset revealed a mix of numerical and categorical variables, with significant null values requiring preprocessing. Categorical variables, stored as 'object' types, were converted to numerical formats, while numerical variables, represented as 'float64', exhibited skewed distributions for features such as blood pressure, blood urea, serum creatinine, hemoglobin, and packed cell volume. Errors like tab-separated values were corrected in both categorical and target variables, ensuring data consistency. Class imbalance in the dataset was addressed using minority sampling techniques. Categorical features such as red blood cells, pus cells, bacterial presence, hypertension, diabetes, coronary artery disease, anemia, and pedal edema were strongly associated with CKD. Box plot analysis revealed outliers in features like age, blood glucose random, and specific gravity, but their removal was avoided due to the dataset's small size. Correlation analysis identified significant relationships, including a high positive correlation between hemoglobin, red blood cell count, and packed cell volume, leading to the retention of hemoglobin due to its clinical importance. Visualizations such as histograms, heatmaps, and box plots provided insights into data distribution, class imbalance, and feature importance for further analysis.
+Visualizations such as histograms, heatmaps, and box plots aided in identifying feature importance and distribution patterns.
 
+---
 
-DATA PREPROCESSING
+## **Data Preprocessing**
 
+- **Normalization**: Applied Standard Scaler to normalize numerical features.  
+- **Imputation**: Replaced missing values with mean (numerical) and mode (categorical).  
+- **Encoding**: Binary categories encoded (e.g., `ckd=1`, `notckd=0`).  
+- **Class Imbalance**: Resolved using **SMOTE**.  
+- **Feature Selection**: Retained clinically relevant features like **hemoglobin**.  
+- **Dataset Split**: Divided into training and testing sets (80:20 ratio).  
 
-To prepare the CKD dataset for modeling, several preprocessing steps were applied. Numerical features were normalized using Standard Scaler to address skewness, ensuring a mean of zero and a standard deviation of one. Missing values were imputed using the mean for numerical data and the mode for categorical data, maintaining dataset integrity. Binary categorical variables were label-encoded (e.g., `ckd=1` and `notckd=0`), facilitating compatibility with machine learning algorithms. Class imbalance was resolved using the Synthetic Minority Over-sampling Technique (SMOTE), enhancing model reliability. Features `pcv` and `rbcc` were dropped, retaining `hemo` based on its importance in feature analysis and clinical relevance. Finally, the dataset was split into training and testing sets in an 80:20 ratio, ensuring readiness for model evaluation and generalization testing.
+---
 
-METHODOLOGY
+## **Methodology**
 
+Three machine learning models were implemented:  
 
-In this project, three machine learning models were implemented for CKD classification: **Random Forest (RF)**, **Support Vector Machine (SVM)**, and **XGBoost**. These models were chosen for their proven performance and efficiency in structured data analysis.
+1. **Random Forest (RF)**:  
+   - Combines decision trees using bagging and random feature selection.  
+   - Tuned parameters: `n_estimators`, `max_depth`, `min_samples_split`.  
+   - Achieved **96.25% accuracy**.  
 
-1. **Random Forest**: Combines multiple decision trees using bagging and random feature selection to improve classification and reduce overfitting. Key hyperparameters, such as `n_estimators`, `max_depth`, and `min_samples_split`, were tuned. After addressing class imbalance with SMOTE and removing highly correlated features, RF achieved an accuracy of 96.25%.
+2. **Support Vector Machine (SVM)**:  
+   - Utilized the RBF kernel for non-linear feature interactions.  
+   - Tuned parameters: `gamma`, `C`, `max_iter`.  
+   - Achieved **93.75% accuracy**.  
 
-2. **Support Vector Machine**: Utilized the RBF kernel to handle non-linear feature interactions. Key parameters like `gamma`, `C`, and `max_iter` were optimized for performance. Removal of highly correlated features and parameter tuning led to an accuracy of 93.75%.
+3. **XGBoost**:  
+   - Gradient-boosted tree algorithm.  
+   - Tuned parameters: `max_depth`, `learning_rate`, `n_estimators`, `subsample`.  
+   - Achieved **98.75% accuracy**.  
 
-3. **XGBoost**: A gradient-boosted tree algorithm designed for structured data problems. Hyperparameters, including `max_depth`, `learning_rate`, `n_estimators`, and `subsample`, were optimized for better performance. Feature selection and parameter adjustments improved the accuracy to 98.75%.
+---
 
-Each model's performance was evaluated using metrics such as accuracy, precision, recall, and F1-score, supported by confusion matrices and classification reports.
+## **Model Performance**
 
-MODEL PERFORMANCE
+| Model                  | Accuracy | Precision (CKD) | Recall (CKD) | F1-Score (CKD) |
+|------------------------|----------|-----------------|--------------|----------------|
+| **Random Forest**      | 96.25%   | 96%             | 98%          | 97%            |
+| **Support Vector Machine** | 93.75%   | 91%             | 100%         | 95%            |
+| **XGBoost**            | 98.75%   | 100%            | 98%          | 99%            |
 
-Random Forest:
+---
 
-Accuracy: 96.25%
-Class 0 (Non-CKD): Precision: 96%, Recall: 93%, F1-Score: 95%
-Class 1 (CKD): Precision: 96%, Recall: 98%, F1-Score: 97%
-Support Vector Machine (SVM):
+## **Feature Importance**
 
-Accuracy: 93.75%
-Class 0 (Non-CKD): Precision: 100%, Recall: 82%, F1-Score: 90%
-Class 1 (CKD): Precision: 91%, Recall: 100%, F1-Score: 95%
-XGBoost:
+Top features identified across models:  
+- **Hemoglobin (Hemo)**: Key indicator of oxygen transport and kidney health.  
+- **Specific Gravity (SG)**: Reflects urine concentration.  
+- **Serum Creatinine (SC)**: Marker for kidney filtration efficiency.  
+- **Albumin (Al)**: Indicates kidney damage.  
 
-Accuracy: 98.75%
-Class 0 (Non-CKD): Precision: 97%, Recall: 100%, F1-Score: 98%
-Class 1 (CKD): Precision: 100%, Recall: 98%, F1-Score: 99%
-Feature Importance:
-Consistent across all models, key features include:
+---
 
-Hemoglobin (Hemo): Critical for oxygen transport and indicative of CKD.
-Specific Gravity (SG): Reflects urine concentration and kidney functionality.
-Serum Creatinine (SC): A marker of kidney filtration efficiency.
-Albumin (Al): Low levels suggest kidney damage.
-Best Performing Model:
+## **Limitations**
 
-XGBoost delivered the highest accuracy, precision, and recall, making it the most reliable for CKD classification.
+1. **Small Dataset Size**: Reduces generalizability.  
+2. **Synthetic Data (SMOTE)**: May not fully replicate real-world complexities.  
+3. **Demographic Features**: Absence of factors like gender impacts diversity in predictions.
 
-Limitations:
-Small dataset size limits generalizability and use of advanced preprocessing methods like PCA.
-Lack of demographic features like gender reduces diversity in predictions.
-Synthetic data (SMOTE) may not fully capture real-world complexities, impacting reliability in practical scenarios.
+---
+
 
 
 
